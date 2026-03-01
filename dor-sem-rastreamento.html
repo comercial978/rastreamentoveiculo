@@ -4,111 +4,1037 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>A Dor de Não Ter Rastreamento Veicular | Blog RastreamentoVeiculo</title>
-<meta name="description" content="Situações reais que mostram o impacto de não ter rastreamento veicular quando você mais precisa. Entenda o custo real de esperar pelo problema acontecer.">
-<link rel="stylesheet" href="../css/style.css">
+<meta name="description" content="Situações reais que mostram o impacto de não ter rastreamento quando você mais precisa.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+/* Fonts loaded via <link> in HTML head for reliability */
+
+:root {
+  --navy: #0a0f1e;
+  --navy-mid: #111827;
+  --navy-light: #1a2540;
+  --electric: #00d4ff;
+  --electric-dim: #00a8cc;
+  --amber: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --white: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --border: rgba(0,212,255,0.15);
+  --card-bg: rgba(26,37,64,0.6);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+  --shadow-glow: 0 0 30px rgba(0,212,255,0.2);
+  --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--navy);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* GRID NOISE BACKGROUND */
+body::before {
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image: 
+    radial-gradient(ellipse at 20% 20%, rgba(0,212,255,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(245,158,11,0.04) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d4ff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events:none;
+  z-index:0;
+}
+
+.container { max-width:1200px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+.container-narrow { max-width:800px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+
+/* TYPOGRAPHY */
+h1,h2,h3,h4 { font-family: var(--font-display); line-height:1.2; }
+h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight:800; }
+h2 { font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight:700; }
+h3 { font-size: clamp(1.2rem, 2vw, 1.6rem); font-weight:600; }
+p { color: var(--text-dim); }
+a { text-decoration:none; color:inherit; }
+
+.highlight { color: var(--electric); }
+.highlight-amber { color: var(--amber); }
+
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top:0; left:0; right:0;
+  z-index:1000;
+  background: rgba(10,15,30,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+}
+.navbar-inner {
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:72px;
+}
+.logo {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-family: var(--font-display);
+  font-weight:800;
+  font-size:1.1rem;
+}
+.logo-icon {
+  width:40px; height:40px;
+  background: linear-gradient(135deg, var(--electric), var(--electric-dim));
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2rem;
+}
+.logo-text span { color: var(--electric); }
+
+.nav-links {
+  display:flex;
+  gap:8px;
+  list-style:none;
+  align-items:center;
+}
+.nav-links a {
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:0.88rem;
+  font-weight:500;
+  color: var(--text-dim);
+  transition: var(--transition);
+}
+.nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+.nav-links .nav-cta a {
+  background: var(--electric);
+  color: var(--navy);
+  font-weight:700;
+  padding:9px 18px;
+}
+.nav-links .nav-cta a:hover { background: #00b8d9; color: var(--navy); }
+
+.hamburger {
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  padding:8px;
+  background:none;
+  border:none;
+  z-index:1001;
+  position:relative;
+}
+.hamburger span {
+  display:block;
+  width:24px;
+  height:2px;
+  background: var(--white);
+  border-radius:2px;
+  transition: var(--transition);
+  transform-origin: center;
+}
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* MOBILE NAV */
+.mobile-menu {
+  position:fixed;
+  top:72px; left:0; right:0;
+  background: rgba(10,15,30,0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  z-index:999;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.mobile-menu.open {
+  max-height: 600px;
+  padding: 16px 24px 20px;
+}
+.mobile-menu a {
+  display:block;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  color: var(--text-dim);
+  font-weight:500;
+  font-size:1rem;
+}
+.mobile-menu a:last-child { border-bottom: none; }
+.mobile-menu a:hover { color: var(--electric); }
+
+/* HERO */
+.hero {
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding: 120px 0 80px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+.hero-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background: rgba(0,212,255,0.1);
+  border:1px solid rgba(0,212,255,0.3);
+  padding:6px 16px;
+  border-radius:100px;
+  font-size:0.8rem;
+  font-weight:600;
+  color: var(--electric);
+  margin-bottom:20px;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+}
+.hero-badge-dot {
+  width:6px;height:6px;
+  background: var(--electric);
+  border-radius:50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+.hero h1 { margin-bottom:20px; }
+.hero p { font-size:1.1rem; margin-bottom:36px; max-width:500px; }
+
+.hero-btns { display:flex; gap:16px; flex-wrap:wrap; }
+
+.btn {
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:14px 28px;
+  border-radius:10px;
+  font-weight:600;
+  font-size:0.95rem;
+  transition: var(--transition);
+  cursor:pointer;
+  border:none;
+  font-family: var(--font-body);
+}
+.btn-primary {
+  background: var(--electric);
+  color: var(--navy);
+}
+.btn-primary:hover { background:#00b8d9; transform:translateY(-2px); box-shadow: 0 8px 24px rgba(0,212,255,0.3); }
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border:1.5px solid rgba(255,255,255,0.3);
+}
+.btn-outline:hover { border-color: var(--electric); color: var(--electric); transform:translateY(-2px); }
+.btn-whatsapp {
+  background: #25D366;
+  color: #fff;
+}
+.btn-whatsapp:hover { background:#1da851; transform:translateY(-2px); box-shadow:0 8px 24px rgba(37,211,102,0.3); }
+.btn-lg { padding:18px 36px; font-size:1.05rem; border-radius:12px; }
+
+/* HERO VISUAL */
+.hero-visual {
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.hero-map {
+  width:100%;
+  max-width:460px;
+  aspect-ratio:1;
+  position:relative;
+}
+.map-circle {
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(0,212,255,0.2);
+  animation: rotate 20s linear infinite;
+}
+.map-circle:nth-child(1) { inset:0; }
+.map-circle:nth-child(2) { inset:10%; border-color:rgba(0,212,255,0.12); animation-duration:30s; animation-direction:reverse; }
+.map-circle:nth-child(3) { inset:20%; border-color:rgba(0,212,255,0.08); animation-duration:40s; }
+@keyframes rotate { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+.map-center {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.map-pin {
+  width:80px;height:80px;
+  background:linear-gradient(135deg,var(--electric),#006eff);
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  box-shadow: 0 0 40px rgba(0,212,255,0.5), 0 0 80px rgba(0,212,255,0.2);
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+.map-dots span {
+  position:absolute;
+  width:8px;height:8px;
+  background:var(--electric);
+  border-radius:50%;
+  opacity:0.6;
+}
+.map-dots span:nth-child(1) { top:15%; left:20%; animation: blink 2s 0.2s infinite; }
+.map-dots span:nth-child(2) { top:30%; right:15%; animation: blink 2s 0.7s infinite; }
+.map-dots span:nth-child(3) { bottom:20%; left:30%; animation: blink 2s 1.2s infinite; }
+.map-dots span:nth-child(4) { bottom:35%; right:25%; animation: blink 2s 0.4s infinite; }
+@keyframes blink { 0%,100%{opacity:0.6;transform:scale(1)} 50%{opacity:1;transform:scale(1.5)} }
+
+/* SECTIONS */
+section { padding:96px 0; }
+.section-tag {
+  display:inline-block;
+  color: var(--electric);
+  font-size:0.8rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.1em;
+  margin-bottom:12px;
+}
+.section-header { margin-bottom:60px; }
+.section-header.center { text-align:center; }
+.section-header h2 { margin-bottom:16px; }
+.section-header p { max-width:600px; }
+.section-header.center p { margin:0 auto; }
+
+/* CARDS */
+.cards-grid { display:grid; gap:24px; }
+.cards-grid-3 { grid-template-columns: repeat(3,1fr); }
+.cards-grid-2 { grid-template-columns: repeat(2,1fr); }
+.cards-grid-4 { grid-template-columns: repeat(4,1fr); }
+
+.card {
+  background: var(--card-bg);
+  border:1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding:32px;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+.card:hover {
+  border-color: rgba(0,212,255,0.35);
+  transform:translateY(-4px);
+  box-shadow: var(--shadow-glow);
+}
+.card-icon {
+  width:52px;height:52px;
+  background: rgba(0,212,255,0.1);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.4rem;
+  margin-bottom:20px;
+}
+.card h3 { margin-bottom:10px; color: var(--white); }
+.card p { font-size:0.92rem; }
+
+/* HOW IT WORKS STEPS */
+.steps { display:grid; gap:0; position:relative; }
+.step {
+  display:grid;
+  grid-template-columns: 60px 1fr;
+  gap:24px;
+  padding:32px 0;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.step:last-child { border-bottom:none; }
+.step-num {
+  width:48px;height:48px;
+  background: linear-gradient(135deg,var(--electric),#006eff);
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family: var(--font-display);
+  font-weight:800;
+  font-size:1.1rem;
+  color: var(--navy);
+  flex-shrink:0;
+}
+.step-content h3 { color:var(--white); margin-bottom:8px; }
+.step-content p { font-size:0.93rem; }
+
+/* DIVIDER */
+.divider {
+  height:1px;
+  background: linear-gradient(90deg, transparent, var(--electric), transparent);
+  opacity:0.3;
+  margin:0;
+}
+
+/* STATS BAR */
+.stats-bar {
+  background: var(--navy-light);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 0;
+}
+.stats-grid {
+  display:grid;
+  grid-template-columns: repeat(4,1fr);
+  gap:40px;
+  text-align:center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size:2.8rem;
+  font-weight:800;
+  color: var(--electric);
+  display:block;
+}
+.stat-label {
+  font-size:0.88rem;
+  color: var(--text-dim);
+  margin-top:4px;
+}
+
+/* CTA SECTION */
+.cta-section {
+  background: linear-gradient(135deg, var(--navy-light), var(--navy));
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  text-align:center;
+  padding:96px 0;
+  position:relative;
+  overflow:hidden;
+}
+.cta-section::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at center, rgba(0,212,255,0.08) 0%, transparent 70%);
+}
+.cta-section h2 { margin-bottom:16px; }
+.cta-section p { max-width:560px; margin:0 auto 36px; }
+.cta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+/* PLANS */
+.plans-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.plan-card {
+  background: var(--card-bg);
+  border:1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding:36px;
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+  position:relative;
+}
+.plan-card:hover { transform:translateY(-6px); box-shadow: var(--shadow-glow); }
+.plan-card.featured {
+  border-color: var(--electric);
+  box-shadow: 0 0 30px rgba(0,212,255,0.15);
+}
+.plan-badge {
+  position:absolute;
+  top:-12px;
+  left:50%;
+  transform:translateX(-50%);
+  background: var(--electric);
+  color: var(--navy);
+  font-size:0.72rem;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  padding:4px 16px;
+  border-radius:100px;
+}
+.plan-name {
+  font-family: var(--font-display);
+  font-size:1.3rem;
+  font-weight:700;
+  color: var(--white);
+  margin-bottom:8px;
+}
+.plan-price {
+  font-family: var(--font-display);
+  font-size:2.2rem;
+  font-weight:800;
+  color: var(--electric);
+  margin-bottom:4px;
+}
+.plan-price-note { font-size:0.82rem; color: var(--text-dim); margin-bottom:24px; }
+.plan-features {
+  list-style:none;
+  margin-bottom:28px;
+}
+.plan-features li {
+  padding:8px 0;
+  border-bottom:1px solid rgba(255,255,255,0.05);
+  font-size:0.9rem;
+  color: var(--text-dim);
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.plan-features li::before { content:'✓'; color:var(--green); font-weight:700; flex-shrink:0; }
+
+/* FAQ */
+.faq-item {
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  margin-bottom:12px;
+  overflow:hidden;
+  transition: var(--transition);
+}
+.faq-item.open { border-color: rgba(0,212,255,0.3); }
+.faq-q {
+  padding:20px 24px;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  background: var(--card-bg);
+  font-weight:600;
+  color: var(--white);
+  font-size:0.97rem;
+}
+.faq-q:hover { background: rgba(26,37,64,0.9); }
+.faq-icon {
+  width:24px;height:24px;
+  border-radius:50%;
+  border:1.5px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1rem;
+  flex-shrink:0;
+  transition: var(--transition);
+  color: var(--electric);
+}
+.faq-item.open .faq-icon { transform:rotate(45deg); border-color: var(--electric); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  padding-bottom: 0;
+  background: var(--card-bg);
+  font-size:0.92rem;
+  color: var(--text-dim);
+  line-height:1.7;
+  transition: max-height 0.35s ease, padding-bottom 0.35s ease;
+}
+.faq-item.open .faq-a {
+  /* max-height and padding-bottom set by JS */
+}
+
+/* BLOG GRID */
+.blog-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+.blog-card {
+  background: var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  overflow:hidden;
+  transition: var(--transition);
+  backdrop-filter: blur(10px);
+}
+.blog-card:hover { transform:translateY(-4px); border-color: rgba(0,212,255,0.3); }
+.blog-card-img {
+  height:180px;
+  background: linear-gradient(135deg, var(--navy-light), var(--navy-mid));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:3rem;
+  position:relative;
+  overflow:hidden;
+}
+.blog-card-img::after {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(10,15,30,0.5));
+}
+.blog-card-body { padding:24px; }
+.blog-tag {
+  font-size:0.72rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color: var(--electric);
+  margin-bottom:10px;
+}
+.blog-card h3 {
+  font-size:1.05rem;
+  color: var(--white);
+  margin-bottom:10px;
+  line-height:1.4;
+}
+.blog-card p { font-size:0.85rem; line-height:1.6; margin-bottom:16px; }
+.blog-card a.read-more {
+  font-size:0.85rem;
+  font-weight:600;
+  color: var(--electric);
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  transition: var(--transition);
+}
+.blog-card a.read-more:hover { gap:10px; }
+
+/* PAGE HERO (inner pages) */
+.page-hero {
+  padding: 160px 0 80px;
+  text-align:center;
+  position:relative;
+}
+.page-hero::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,212,255,0.08) 0%, transparent 70%);
+}
+.page-hero h1 { margin-bottom:20px; }
+.page-hero p { font-size:1.1rem; max-width:680px; margin:0 auto; }
+
+/* CONTENT SECTIONS */
+.content-block {
+  padding:64px 0;
+}
+.content-2col {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+}
+.content-2col.reverse { direction:rtl; }
+.content-2col.reverse > * { direction:ltr; }
+
+.content-visual {
+  background: var(--navy-light);
+  border:1px solid var(--border);
+  border-radius:var(--radius-lg);
+  height:320px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:5rem;
+  position:relative;
+  overflow:hidden;
+}
+.content-visual::before {
+  content:'';
+  position:absolute;
+  inset:0;
+  background: radial-gradient(ellipse at center, rgba(0,212,255,0.06) 0%, transparent 70%);
+}
+.content-text h2 { margin-bottom:16px; }
+.content-text p { margin-bottom:16px; font-size:0.95rem; }
+
+/* TABLE-LIKE COMPARISON */
+.comparison-table {
+  width:100%;
+  border-collapse:collapse;
+}
+.comparison-table th, .comparison-table td {
+  padding:16px 20px;
+  border:1px solid var(--border);
+  font-size:0.92rem;
+}
+.comparison-table th {
+  background: rgba(0,212,255,0.08);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight:600;
+}
+.comparison-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+/* TEAM / ABOUT */
+.about-values {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:48px;
+}
+.value-card {
+  background: var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:28px;
+  text-align:center;
+}
+.value-card .vi { font-size:2rem; margin-bottom:12px; }
+.value-card h4 { font-family: var(--font-display); font-weight:700; color:var(--white); margin-bottom:8px; }
+.value-card p { font-size:0.88rem; }
+
+/* BREADCRUMB */
+.breadcrumb {
+  padding: 100px 0 0;
+  font-size:0.85rem;
+  color: var(--text-dim);
+}
+.breadcrumb a { color: var(--electric); }
+.breadcrumb span { margin:0 8px; }
+
+/* FOOTER */
+footer {
+  background: var(--navy-mid);
+  border-top: 1px solid var(--border);
+  padding:64px 0 24px;
+}
+.footer-grid {
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap:48px;
+  margin-bottom:48px;
+}
+.footer-brand p {
+  font-size:0.88rem;
+  margin:16px 0 24px;
+  max-width:280px;
+}
+.footer-social { display:flex; gap:12px; }
+.social-btn {
+  width:36px;height:36px;
+  background:rgba(255,255,255,0.05);
+  border:1px solid var(--border);
+  border-radius:8px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:0.9rem;
+  transition: var(--transition);
+}
+.social-btn:hover { background: rgba(0,212,255,0.1); border-color: var(--electric); }
+
+.footer-col h5 {
+  font-family: var(--font-display);
+  font-weight:700;
+  font-size:0.88rem;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  color: var(--white);
+  margin-bottom:20px;
+}
+.footer-col ul { list-style:none; }
+.footer-col ul li { margin-bottom:10px; }
+.footer-col ul li a {
+  font-size:0.88rem;
+  color: var(--text-dim);
+  transition: var(--transition);
+}
+.footer-col ul li a:hover { color: var(--electric); }
+
+.footer-bottom {
+  border-top:1px solid var(--border);
+  padding-top:24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:0.82rem;
+  color: var(--text-dim);
+}
+
+/* WHATSAPP FLOAT */
+.whatsapp-float {
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  z-index:500;
+  width:60px;height:60px;
+  background:#25D366;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.6rem;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+  transition: var(--transition);
+  animation: float 3s ease-in-out infinite;
+}
+.whatsapp-float:hover { transform:scale(1.1); box-shadow: 0 8px 30px rgba(37,211,102,0.5); }
+
+/* PAGE SPECIFIC */
+.page-content { padding: 64px 0 96px; }
+.prose h2 { font-size:1.8rem; margin: 40px 0 16px; color: var(--white); }
+.prose h3 { font-size:1.3rem; margin: 28px 0 12px; color: var(--white); }
+.prose p { margin-bottom:18px; font-size:0.97rem; line-height:1.8; }
+.prose ul, .prose ol { padding-left:24px; margin-bottom:18px; }
+.prose ul li, .prose ol li { margin-bottom:8px; color: var(--text-dim); font-size:0.95rem; }
+.prose blockquote {
+  border-left:3px solid var(--electric);
+  padding:16px 24px;
+  background: rgba(0,212,255,0.05);
+  border-radius:0 var(--radius) var(--radius) 0;
+  margin:28px 0;
+  font-style:italic;
+  color: var(--text-dim);
+}
+
+/* ARTICLE PAGE */
+.article-hero { padding: 140px 0 60px; text-align:center; }
+.article-hero .article-tag {
+  color: var(--electric);
+  font-size:0.8rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:0.08em;
+  margin-bottom:16px;
+}
+.article-hero h1 { font-size:clamp(1.8rem,3vw,3rem); margin-bottom:20px; }
+.article-meta { display:flex; gap:20px; justify-content:center; font-size:0.85rem; color:var(--text-dim); flex-wrap:wrap; }
+.article-meta span { display:flex; align-items:center; gap:6px; }
+
+/* RESPONSIVE */
+@media (max-width:1024px) {
+  .cards-grid-4 { grid-template-columns:repeat(2,1fr); }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+}
+
+@media (max-width:768px) {
+  h1 { font-size:2rem; }
+  h2 { font-size:1.6rem; }
+  .nav-links { display:none; }
+  .hamburger { display:flex; }
+  .hero-grid { grid-template-columns:1fr; gap:40px; }
+  .hero-visual { display:none; }
+  .cards-grid-3 { grid-template-columns:1fr; }
+  .cards-grid-2 { grid-template-columns:1fr; }
+  .cards-grid-4 { grid-template-columns:1fr; }
+  .plans-grid { grid-template-columns:1fr; }
+  .stats-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-grid { grid-template-columns:1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; gap:12px; text-align:center; }
+  .about-values { grid-template-columns:1fr; }
+  .blog-grid { grid-template-columns:1fr; }
+  .content-2col { grid-template-columns:1fr; }
+  .step { grid-template-columns:48px 1fr; }
+}
+
+@media (max-width:480px) {
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .hero-btns { flex-direction:column; }
+  .cta-btns { flex-direction:column; align-items:center; }
+}
+
+</style>
 </head>
 <body>
-<nav class="navbar">
-  <div class="navbar-inner">
+<nav class="navbar"><div class="navbar-inner">
     <a href="../index.html" class="logo"><div class="logo-icon">📍</div><div class="logo-text">Rastreamento<span>Veiculo</span></div></a>
     <ul class="nav-links">
-      <li><a href="../o-que-e.html">O Que É</a></li><li><a href="../como-funciona.html">Como Funciona</a></li><li><a href="../beneficios.html">Benefícios</a></li><li><a href="../planos.html">Planos</a></li><li><a href="../faq.html">FAQ</a></li><li><a href="../blog.html" style="color:var(--electric)">Blog</a></li><li><a href="../quem-somos.html">Quem Somos</a></li>
+      <li><a href="../o-que-e.html">O Que É</a></li>
+      <li><a href="../como-funciona.html">Como Funciona</a></li>
+      <li><a href="../beneficios.html">Benefícios</a></li>
+      <li><a href="../planos.html">Planos</a></li>
+      <li><a href="../faq.html">FAQ</a></li>
+      <li><a href="../blog.html">Blog</a></li>
+      <li><a href="../quem-somos.html">Quem Somos</a></li>
       <li class="nav-cta"><a href="https://wa.me/5534988977879" target="_blank">📲 WhatsApp</a></li>
     </ul>
-    <button class="hamburger"><span></span><span></span><span></span></button>
-  </div>
-</nav>
-<div class="mobile-menu"><a href="../blog.html">← Voltar ao Blog</a><a href="https://wa.me/5534988977879" target="_blank" style="color:#25D366;font-weight:700;">📲 WhatsApp</a></div>
-
-<div class="article-hero">
-  <div class="container-narrow">
-    <div class="article-tag">😰 Realidade</div>
-    <h1>A dor de não ter rastreamento veicular: situações que mudam tudo</h1>
-    <div class="article-meta"><span>📅 Janeiro de 2025</span><span>⏱️ 6 min de leitura</span></div>
-  </div>
+    <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</div></nav>
+<div class="mobile-menu">
+  <a href="../o-que-e.html">O Que É</a>
+  <a href="../como-funciona.html">Como Funciona</a>
+  <a href="../beneficios.html">Benefícios</a>
+  <a href="../planos.html">Planos</a>
+  <a href="../faq.html">FAQ</a>
+  <a href="../blog.html">Blog</a>
+  <a href="../quem-somos.html">Quem Somos</a>
+  <a href="https://wa.me/5534988977879" target="_blank" style="color:#25D366;font-weight:700;">📲 Falar no WhatsApp</a>
 </div>
+<div class="article-hero"><div class="container-narrow">
+  <div class="article-tag">😰 Realidade</div>
+  <h1>A dor de não ter rastreamento veicular: situações que mudam tudo</h1>
+  <div class="article-meta"><span>📅 2025</span><span>⏱️ 6 min de leitura</span></div>
+</div></div>
+<div class="page-content" style="padding-top:40px;"><div class="container-narrow"><div class="prose">
+<p>Existe um padrão doloroso que se repete com frequência: a pessoa decide instalar o rastreamento logo após viver uma situação que teria sido completamente diferente se já tivesse a tecnologia. O problema é que, nesse ponto, a situação já aconteceu — com todas as consequências. Este artigo fala de situações concretas e recorrentes que ilustram o custo real de não ter rastreamento.</p>
 
-<div class="page-content" style="padding-top:40px;">
-  <div class="container-narrow">
-    <div class="prose">
+<h2>Situação 1: O roubo às 23h em frente ao shopping</h2>
+<p>João saiu do trabalho, foi ao shopping resolver uma questão rápida e quando voltou ao estacionamento, o carro havia sumido. Sem rastreamento, o roteiro é previsível: boletim de ocorrência, ligação para a seguradora, espera pela perícia, franquia salgada e a certeza de que o veículo nunca foi encontrado.</p>
+<p>Com rastreamento, o cenário seria outro: João acessaria o aplicativo, confirmaria que o carro estava em movimento, acionaria a polícia com coordenadas exatas e, em muitos casos registrados, o veículo seria recuperado ainda na mesma noite. A diferença entre os dois cenários não é sorte. É tecnologia.</p>
 
-      <p>Existe um padrão doloroso que se repete com frequência angustiante: a pessoa decide instalar o rastreamento veicular logo após viver uma situação que teria sido completamente diferente se já tivesse a tecnologia. O problema é que, nesse ponto, a situação já aconteceu — com todas as consequências.</p>
+<h2>Situação 2: O filho na estrada sem dar notícias</h2>
+<p>Mariana emprestou o carro para o filho de 19 anos viajar para a praia. O combinado era ligar ao chegar. Passaram 4 horas sem notícia. O celular não atendia. Sem rastreamento, a angústia se instala imediatamente. Com rastreamento, 30 segundos de consulta no aplicativo mostram que o carro está estacionado no calçadão da praia de destino há 40 minutos. O filho simplesmente esqueceu de avisar. A angústia se dissolve imediatamente.</p>
 
-      <p>Este artigo fala de situações concretas e recorrentes que ilustram o custo real de não ter rastreamento. Não para assustar, mas para ajudar quem ainda está "pensando" a tomar uma decisão baseada na realidade, não na esperança de que nada vai acontecer.</p>
+<h2>Situação 3: O caminhão desviou da rota e a carga sumiu</h2>
+<p>Roberto é dono de uma pequena transportadora. O cliente liga reclamando que a carga não chegou — eram 4 horas depois do horário previsto. O motorista não atende o celular. Sem rastreamento, Roberto não sabe se houve problema mecânico, assalto, acidente ou parada não autorizada. Com rastreamento, ele verifica em segundos que o caminhão está estacionado em um endereço que não faz parte da rota — a 40 quilômetros do destino — e pode agir de forma direcionada.</p>
 
-      <h2>Situação 1: O roubo às 23h em frente ao shopping</h2>
+<h2>Situação 4: O acidente em local remoto</h2>
+<p>Sandra saiu para uma reunião em cidade vizinha. Em um trecho de menor movimento, o carro derrapou e foi parar fora da pista. Sandra ficou inconsciente por alguns minutos e acordou em local sem sinal de celular. Sem rastreamento, ninguém saberia que ela havia tido um problema até que alguém tentasse ligar e não obtivesse resposta. Com rastreamento, uma notificação automática foi enviada ao familiar cadastrado, que acionou o socorro com coordenadas exatas. O tempo de atendimento foi drasticamente reduzido.</p>
 
-      <p>João saiu do trabalho, foi ao shopping resolver uma questão rápida e quando voltou ao estacionamento, o carro havia sumido. Sem rastreamento, o roteiro se torna dolorosamente previsível: boletim de ocorrência, ligação para a seguradora (se tiver), espera pela perícia, discussão sobre o valor de indenização, franquia salgada e, por fim, a certeza de que o veículo nunca foi encontrado.</p>
+<h2>O custo emocional que não aparece nas contas</h2>
+<p>É tentador calcular o retorno do rastreamento apenas em termos financeiros. Mas existe um custo que não aparece nas planilhas: o custo emocional da incerteza. Não saber onde está o filho. Não saber o que aconteceu com o caminhão. A angústia de sentir que o problema está acontecendo e você não tem como agir. Esse custo é real, significativo e, na maioria dos casos, completamente evitável.</p>
 
-      <p>Com rastreamento, o cenário seria outro: ao perceber a ausência do veículo, João acessaria o aplicativo, confirmaria que o carro estava em movimento (indicando roubo), acionaria a polícia com as coordenadas exatas e, em muitos casos registrados, o veículo seria recuperado ainda na mesma noite — sem nenhum dano estrutural.</p>
+<h2>Por que as pessoas esperam o problema acontecer?</h2>
+<p>A psicologia tem uma resposta: é o viés do otimismo. Tendemos a acreditar, de forma irracional, que eventos negativos têm menor probabilidade de acontecer conosco do que com outras pessoas. O problema é que roubos, acidentes e emergências não escolhem quem afetam. A única variável que muda é se você estava preparado.</p>
 
-      <p>A diferença entre os dois cenários não é sorte. É tecnologia.</p>
-
-      <h2>Situação 2: O filho na estrada sem dar notícias</h2>
-
-      <p>Mariana emprestou o carro para o filho de 19 anos viajar com amigos para a praia — uma distância de 180 km. O combinado era ligar ao chegar. Passaram 4 horas sem notícia. O celular do filho estava sem sinal (ou descarregado, ou em modo silencioso). O que fazer?</p>
-
-      <p>Sem rastreamento, a angústia se instala imediatamente. Ligar para o carro continua sem resposta. Ligar para amigos dos amigos. Tentar descobrir em qual posto de gasolina pararam pela última vez. Considerar acionar a polícia ou a PRF para verificar se houve acidente na rodovia.</p>
-
-      <p>Com rastreamento, 30 segundos de consulta no aplicativo mostram que o carro está estacionado há 40 minutos em um ponto que corresponde ao calçadão da praia de destino. O filho simplesmente esqueceu de avisar. A angústia se dissolve imediatamente.</p>
-
-      <h2>Situação 3: O caminhão desviou da rota e a carga sumiu</h2>
-
-      <p>Roberto é dono de uma pequena transportadora. Em uma tarde de terça-feira, ele recebe um telefonema do cliente reclamando que a carga não chegou — eram 4 horas depois do horário previsto. O motorista não atende o celular.</p>
-
-      <p>Sem rastreamento, Roberto não sabe se o motorista teve um problema mecânico, se sofreu um assalto, se houve um acidente ou se simplesmente decidiu fazer uma parada não autorizada. A incerteza é total, e o prejuízo potencial também.</p>
-
-      <p>Com rastreamento, Roberto verifica em segundos que o caminhão está estacionado em um endereço que não faz parte da rota — a 40 quilômetros do destino. Com essa informação, aciona o motorista de forma direcionada e, se necessário, aciona as autoridades com a localização exata do veículo.</p>
-
-      <h2>Situação 4: O acidente em local remoto</h2>
-
-      <p>Sandra saiu para uma reunião em uma cidade vizinha. A estrada tinha um trecho de menor movimento. O carro derrapou em uma área de curvas e foi parar fora da pista. Sandra ficou inconsciente por alguns minutos. Quando voltou a si, estava em um local sem sinal de celular e sem visibilidade da estrada.</p>
-
-      <p>Sem rastreamento, ninguém saberia que ela havia tido um problema até que alguém na empresa ou na família ligasse e não obtivesse resposta. A busca seria longa e imprecisa.</p>
-
-      <p>Com rastreamento, o sistema já havia registrado que o veículo estava parado há 40 minutos em um ponto incomum da rota. Uma notificação automática foi enviada para o familiar cadastrado como contato de emergência, que acionou o socorro com as coordenadas exatas do local. O tempo de socorro foi drasticamente reduzido.</p>
-
-      <h2>O custo emocional que não aparece nas contas</h2>
-
-      <p>É tentador calcular o retorno do rastreamento apenas em termos financeiros: quanto custa o dispositivo, quanto custa a mensalidade, quanto vale o veículo. Mas existe um custo que não aparece nessas planilhas: o custo emocional da incerteza.</p>
-
-      <p>Não saber onde está o filho. Não saber o que aconteceu com o caminhão. Não ter como ajudar alguém que sofreu um acidente. A angústia de sentir que o problema está acontecendo e você não tem como agir. Esse custo emocional é real, é significativo e, na maioria dos casos, é completamente evitável.</p>
-
-      <h2>Por que as pessoas esperam o problema acontecer?</h2>
-
-      <p>A psicologia tem uma resposta para isso: é o viés do otimismo. Tendemos a acreditar, de forma irracional, que eventos negativos têm menor probabilidade de acontecer conosco do que com outras pessoas. "Isso acontece com os outros, não comigo."</p>
-
-      <p>O problema é que o roubo de veículos, os acidentes e as situações de emergência não escolhem quem afetam. Eles acontecem com pessoas exatamente como você, em situações exatamente como as que você vive no cotidiano. A única variável que muda é se você estava preparado.</p>
-
-      <h2>A decisão mais simples que você pode tomar hoje</h2>
-
-      <p>Instalar um rastreador não exige um processo demorado. É uma decisão que pode ser tomada e executada em questão de dias. A instalação leva menos de uma hora. O custo mensal é acessível. E os benefícios começam no momento em que o técnico termina o trabalho.</p>
-
-      <p>A dor de não ter rastreamento é sempre sentida depois — quando a situação já aconteceu e não há mais nada a fazer além de lidar com as consequências. A decisão de instalar é sempre tomada antes — quando ainda é possível escolher estar protegido.</p>
-
-      <p>Qual situação descrita neste artigo ressoou mais com você? Se a resposta foi alguma delas, a próxima ação é clara. Não espere ser mais uma história sobre o que teria sido diferente "se tivesse rastreamento".</p>
-
-    </div>
-
-    <div style="margin-top:48px;padding:40px;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);text-align:center;">
-      <h3 style="color:var(--white);margin-bottom:12px;">Não seja o próximo a lamentar</h3>
-      <p style="margin-bottom:24px;">A proteção começa com uma decisão. Fale com nossa equipe e instale o rastreamento ainda esta semana.</p>
-      <a href="https://wa.me/5534988977879?text=Li%20o%20artigo%20sobre%20a%20dor%20de%20não%20ter%20rastreamento%20e%20quero%20proteger%20meu%20veículo." target="_blank" class="btn btn-whatsapp btn-lg">📲 Proteger Meu Veículo Agora</a>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand"><a href="../index.html" class="logo"><div class="logo-icon">📍</div><div class="logo-text">Rastreamento<span>Veiculo</span></div></a><p>GPS+GSM para proteção veicular e gestão de frotas.</p></div>
-      <div class="footer-col"><h5>Páginas</h5><ul><li><a href="../planos.html">Planos</a></li><li><a href="../faq.html">FAQ</a></li><li><a href="../blog.html">Blog</a></li></ul></div>
-      <div class="footer-col"><h5>Contato</h5><ul><li><a href="https://wa.me/5534988977879" target="_blank">📲 (34) 98897-7879</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><span>© 2025 RastreamentoVeiculo.com.br</span></div>
-  </div>
-</footer>
+<h2>A decisão mais simples que você pode tomar hoje</h2>
+<p>Instalar um rastreador não exige um processo demorado. A instalação leva menos de uma hora. O custo mensal é acessível. E os benefícios começam no momento em que o técnico termina o trabalho. A dor de não ter rastreamento é sempre sentida depois — quando a situação já aconteceu e não há mais nada a fazer além de lidar com as consequências. A decisão de instalar é sempre tomada antes — quando ainda é possível escolher estar protegido.</p>
+</div><div style="margin-top:48px;padding:40px;background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius-lg);text-align:center;"><h3 style="color:var(--white);margin-bottom:12px;">Não seja o próximo a lamentar</h3><p style="margin-bottom:24px;">Fale agora com nossa equipe pelo WhatsApp.</p><a href="https://wa.me/5534988977879?text=Li%20o%20blog%20e%20quero%20um%20orçamento." target="_blank" class="btn btn-whatsapp btn-lg">📲 Solicitar Orçamento: (34) 98897-7879</a></div></div></div>
+<footer><div class="container"><div class="footer-grid">
+  <div class="footer-brand"><a href="../index.html" class="logo"><div class="logo-icon">📍</div><div class="logo-text">Rastreamento<span>Veiculo</span></div></a><p>Tecnologia GPS+GSM para proteção veicular.</p></div>
+  <div class="footer-col"><h5>Páginas</h5><ul><li><a href="../planos.html">Planos</a></li><li><a href="../faq.html">FAQ</a></li><li><a href="../blog.html">Blog</a></li></ul></div>
+  <div class="footer-col"><h5>Contato</h5><ul><li><a href="https://wa.me/5534988977879" target="_blank">📲 (34) 98897-7879</a></li></ul></div>
+</div><div class="footer-bottom"><span>© 2025 RastreamentoVeiculo.com.br</span></div></div></footer>
 <a href="https://wa.me/5534988977879" target="_blank" class="whatsapp-float">💬</a>
-<script src="../js/main.js"></script>
-</body>
-</html>
+<script>
+/* ============================================
+   RastreamentoVeiculo.com.br — main.js
+   ============================================ */
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  /* ── MOBILE HAMBURGER MENU ── */
+  var hamburger = document.querySelector('.hamburger');
+  var mobileMenu = document.querySelector('.mobile-menu');
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('active', isOpen);
+    });
+    mobileMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+      }
+    });
+  }
+
+  /* ── FAQ ACCORDION ── */
+  document.querySelectorAll('.faq-item').forEach(function (item) {
+    var q = item.querySelector('.faq-q');
+    var ans = item.querySelector('.faq-a');
+    if (!q || !ans) return;
+    q.addEventListener('click', function () {
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function (i) {
+        i.classList.remove('open');
+        var a = i.querySelector('.faq-a');
+        if (a) { a.style.maxHeight = '0'; a.style.paddingBottom = '0'; }
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        ans.style.maxHeight = ans.scrollHeight + 40 + 'px';
+        ans.style.paddingBottom = '20px';
+      }
+    });
+  });
+
+  /* ── SMOOTH SCROLL ── */
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var href = a.getAttribute('href');
+      if (href && href.length > 1) {
+        var el = document.querySelector(href);
+        if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+      }
+    });
+  });
+
+  /* ── NAVBAR SCROLL ── */
+  var navbar = document.querySelector('.navbar');
+  if (navbar) {
+    window.addEventListener('scroll', function () {
+      navbar.style.background = window.scrollY > 50 ? 'rgba(10,15,30,0.98)' : 'rgba(10,15,30,0.85)';
+    });
+  }
+
+  /* ── FADE-IN (not applied to faq-item) ── */
+  if ('IntersectionObserver' in window) {
+    var styleEl = document.createElement('style');
+    styleEl.textContent = '.fade-ready{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}.fade-ready.visible{opacity:1!important;transform:translateY(0)!important}';
+    document.head.appendChild(styleEl);
+    var fadeObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.card,.plan-card,.blog-card,.step,.value-card').forEach(function (el) {
+      el.classList.add('fade-ready');
+      fadeObserver.observe(el);
+    });
+  }
+
+  /* ── COUNTER ANIMATION ── */
+  if ('IntersectionObserver' in window) {
+    document.querySelectorAll('.stat-num').forEach(function (counter) {
+      var original = counter.textContent.trim();
+      var numMatch = original.match(/[\d]+/);
+      if (!numMatch) return;
+      var num = parseInt(numMatch[0]);
+      var suffix = original.replace(numMatch[0], '');
+      var counted = false;
+      var cObs = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting || counted) return;
+        counted = true;
+        var start = null;
+        var dur = 1800;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / dur, 1);
+          var e = 1 - Math.pow(1 - p, 3);
+          counter.textContent = Math.floor(e * num).toLocaleString('pt-BR') + suffix;
+          if (p < 1) requestAnimationFrame(step);
+          else counter.textContent = num.toLocaleString('pt-BR') + suffix;
+        }
+        requestAnimationFrame(step);
+        cObs.unobserve(counter);
+      }, { threshold: 0.5 });
+      cObs.observe(counter);
+    });
+  }
+
+});
+
+</script>
+</body></html>
