@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /reels/
 
 Sitemap: https://rastreamentoveiculo.com.br/sitemap.xml

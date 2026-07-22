@@ -1,0 +1,22 @@
+{
+  "name": "RastreamentoVeiculo.com.br",
+  "short_name": "RastreamentoVeiculo",
+  "description": "Rastreamento veicular em Uberaba-MG com atendimento nacional. Localização em tempo real, alertas, histórico de rotas e gestão de frotas por GPS.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#0a0f1e",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
