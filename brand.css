@@ -1,0 +1,31 @@
+.logo {
+  line-height: 0;
+}
+
+.logo .brand-logo {
+  display: block;
+  width: 60px;
+  height: 60px;
+  flex: 0 0 60px;
+  object-fit: contain;
+}
+
+.footer-brand .logo .brand-logo {
+  width: 112px;
+  height: 112px;
+  flex-basis: 112px;
+}
+
+@media (max-width: 480px) {
+  .logo .brand-logo {
+    width: 54px;
+    height: 54px;
+    flex-basis: 54px;
+  }
+
+  .footer-brand .logo .brand-logo {
+    width: 104px;
+    height: 104px;
+    flex-basis: 104px;
+  }
+}
