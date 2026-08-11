@@ -1,0 +1,28 @@
+:root {
+  color-scheme: dark;
+  font-family: Arial, sans-serif;
+  background: #0a0f1e;
+  color: #eef4ff;
+}
+
+body {
+  display: grid;
+  min-height: 100vh;
+  margin: 0;
+  place-items: center;
+}
+
+main {
+  width: min(520px, calc(100% - 48px));
+  text-align: center;
+}
+
+img {
+  width: 128px;
+  height: 128px;
+  object-fit: contain;
+}
+
+a {
+  color: #34d6ff;
+}
