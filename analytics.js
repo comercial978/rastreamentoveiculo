@@ -48,6 +48,7 @@
 
   function getCtaLocation(element) {
     if (element.closest('.whatsapp-float')) return 'floating_button';
+    if (element.closest('.mobile-header-cta')) return 'mobile_header';
     if (element.closest('.mobile-menu')) return 'mobile_menu';
     if (element.closest('nav, .navbar')) return 'navigation';
     if (element.closest('.hero')) return 'hero';
