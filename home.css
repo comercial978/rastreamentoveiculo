@@ -179,6 +179,10 @@ p {
   color: var(--cyan);
 }
 
+.hero .eyebrow {
+  color: #c2c7ff;
+}
+
 .accent {
   color: var(--cyan-strong);
 }
