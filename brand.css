@@ -1,5 +1,34 @@
+:root {
+  --navy: #11143f;
+  --navy-mid: #1a1f59;
+  --navy-light: #252b72;
+  --electric: #929bf2;
+  --electric-dim: #2f3492;
+  --amber: #f58220;
+  --green: #128447;
+  --white: #f8f9ff;
+  --gray-100: #f1f2ff;
+  --gray-300: #d9dcf0;
+  --gray-400: #a7add0;
+  --gray-500: #747caa;
+  --text: #eef0ff;
+  --text-dim: #b8bee0;
+  --border: rgba(146, 155, 242, 0.2);
+  --shadow-glow: 0 0 30px rgba(47, 52, 146, 0.24);
+}
+
 .logo {
   line-height: 0;
+}
+
+.nav-links .nav-cta a:hover,
+.btn-primary:hover {
+  background: #aeb5ff;
+  box-shadow: 0 8px 24px rgba(47, 52, 146, 0.28);
+}
+
+.btn-whatsapp:hover {
+  background: #0d6938;
 }
 
 .logo .brand-logo {
