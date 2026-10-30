@@ -52,6 +52,7 @@
     if (element.closest('.mobile-menu')) return 'mobile_menu';
     if (element.closest('nav, .navbar')) return 'navigation';
     if (element.closest('.hero')) return 'hero';
+    if (element.closest('.quote-band')) return 'quote_selector';
     if (element.closest('.plan-card')) return 'plan_card';
     if (element.closest('article')) return 'article';
     if (element.closest('footer')) return 'footer';
@@ -92,13 +93,21 @@
       cta_text: getCtaText(element)
     };
     var planName = getPlanName(element);
+    var leadType = cleanText(element.dataset.leadType, 40);
+    var vehicleType = cleanText(element.dataset.vehicleType, 40);
 
     if (planName) parameters.plan_name = planName;
+    if (leadType) parameters.lead_type = leadType;
+    if (vehicleType) parameters.vehicle_type = vehicleType;
 
     sendEvent(contactMethod + '_click', parameters);
-    sendEvent('generate_lead', Object.assign({
-      lead_source: contactMethod
-    }, parameters));
+
+    // The visible phone number is dedicated to customer support, not sales.
+    if (contactMethod === 'whatsapp' || leadType === 'quote') {
+      sendEvent('generate_lead', Object.assign({
+        lead_source: contactMethod
+      }, parameters));
+    }
   }
 
   function trackLinkClick(event) {
@@ -174,11 +183,51 @@
     });
   }
 
+  function trackConversionSections() {
+    var sections = Array.prototype.slice.call(
+      document.querySelectorAll('[data-conversion-section]')
+    );
+    if (!sections.length) return;
+
+    function sendSectionView(section) {
+      if (section.dataset.analyticsViewed === 'true') return;
+
+      section.dataset.analyticsViewed = 'true';
+      sendEvent('view_quote_options', {
+        cta_location: section.classList.contains('quote-band')
+          ? 'quote_selector'
+          : 'main_content'
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      sections.forEach(sendSectionView);
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        sendSectionView(entry.target);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.45 });
+
+    sections.forEach(function (section) {
+      observer.observe(section);
+    });
+  }
+
+  function initializeTracking() {
+    trackPlanViews();
+    trackConversionSections();
+  }
+
   document.addEventListener('click', trackLinkClick);
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', trackPlanViews);
+    document.addEventListener('DOMContentLoaded', initializeTracking);
   } else {
-    trackPlanViews();
+    initializeTracking();
   }
 })();
