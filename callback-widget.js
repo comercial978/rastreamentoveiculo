@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var WHATSAPP_NUMBER = '5534988977879';
+  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/comercial@uaisoftware.com.br';
   var AUTO_OPEN_DELAY = 18000;
   var AUTO_OPEN_DEPTH = 0.32;
   var storageKeys = {
@@ -93,15 +93,19 @@
       '    </div>',
       '    <label class="callback-consent">',
       '      <input name="consent" type="checkbox" required>',
-      '      <span>Concordo em enviar estes dados pelo WhatsApp para solicitar o contato.</span>',
+      '      <span>Concordo com o uso do meu nome e telefone exclusivamente para este contato.</span>',
       '    </label>',
       '    <span class="callback-error" data-error-for="consent"></span>',
+      '    <div class="callback-honey" aria-hidden="true">',
+      '      <label for="callback-company">Não preencha este campo</label>',
+      '      <input id="callback-company" name="company" type="text" tabindex="-1" autocomplete="off">',
+      '    </div>',
       '    <button class="callback-submit" type="submit">',
       '      <svg class="callback-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.8a2 2 0 0 1-.45 2.11L8.07 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.84.55 2.8.68A2 2 0 0 1 22 16.92z"></path></svg>',
       '      Pedir para ligarem',
       '    </button>',
       '    <p class="callback-status" role="status" aria-live="polite"></p>',
-      '    <p class="callback-note">Ao continuar, o WhatsApp será aberto. Envie a mensagem para concluir o pedido.</p>',
+      '    <p class="callback-note">Seus dados serão usados somente para que a equipe comercial entre em contato.</p>',
       '  </form>',
       '</section>'
     ].join('');
@@ -121,6 +125,8 @@
     var nameInput = widget.querySelector('[name="name"]');
     var phoneInput = widget.querySelector('[name="phone"]');
     var consentInput = widget.querySelector('[name="consent"]');
+    var honeyInput = widget.querySelector('[name="company"]');
+    var submitButton = widget.querySelector('.callback-submit');
     var status = widget.querySelector('.callback-status');
     var closeTimer = 0;
     var formStarted = false;
@@ -237,27 +243,59 @@
         return;
       }
 
-      var message = [
-        'Olá! Vim pelo site da UAI Tracker e gostaria que ligassem para mim.',
-        '',
-        'Nome: ' + name,
-        'Telefone: ' + phone,
-        '',
-        'Aguardo o contato. Obrigado!'
-      ].join('\n');
-      var whatsappUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+      if (honeyInput.value) return;
 
-      requested = true;
-      writeSession(storageKeys.requested);
-      status.textContent = 'WhatsApp aberto. Envie a mensagem para confirmar seu pedido.';
-      track('callback_request', {
-        contact_method: 'whatsapp'
-      });
-      track('generate_lead', {
-        lead_source: 'callback_whatsapp',
-        contact_method: 'callback'
-      });
-      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+      submitButton.textContent = 'Enviando pedido...';
+      status.textContent = '';
+
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          Nome: name,
+          Telefone: phone,
+          Solicitacao: 'Pedido de ligação pelo site',
+          Pagina: window.location.href,
+          _subject: 'Novo pedido de ligação - UAI Tracker',
+          _template: 'table',
+          _captcha: 'false',
+          _honey: ''
+        })
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Form submission failed');
+          return response.json();
+        })
+        .then(function () {
+          requested = true;
+          writeSession(storageKeys.requested);
+          form.classList.add('is-submitted');
+          form.reset();
+          status.textContent = 'Pedido recebido. Nossa equipe entrará em contato pelo telefone informado.';
+          submitButton.textContent = 'Pedido enviado';
+          submitButton.removeAttribute('aria-busy');
+          track('callback_request', {
+            contact_method: 'email_form'
+          });
+          track('generate_lead', {
+            lead_source: 'callback_email',
+            contact_method: 'callback'
+          });
+        })
+        .catch(function () {
+          submitButton.disabled = false;
+          submitButton.removeAttribute('aria-busy');
+          submitButton.textContent = 'Tentar novamente';
+          status.textContent = 'Não foi possível enviar agora. Verifique sua conexão e tente novamente.';
+          track('callback_form_error', {
+            error_type: 'submission'
+          });
+        });
     });
 
     var autoTimer = window.setTimeout(function () {
