@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/comercial@uaisoftware.com.br';
+  var FORM_ENDPOINT = 'https://shipmyform.com/to/comercial@uaisoftware.com.br';
   var AUTO_OPEN_DELAY = 18000;
   var AUTO_OPEN_DEPTH = 0.32;
   var storageKeys = {
@@ -98,7 +98,7 @@
       '    <span class="callback-error" data-error-for="consent"></span>',
       '    <div class="callback-honey" aria-hidden="true">',
       '      <label for="callback-company">Não preencha este campo</label>',
-      '      <input id="callback-company" name="company" type="text" tabindex="-1" autocomplete="off">',
+      '      <input id="callback-company" name="_gotcha" type="text" tabindex="-1" autocomplete="off">',
       '    </div>',
       '    <button class="callback-submit" type="submit">',
       '      <svg class="callback-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.8a2 2 0 0 1-.45 2.11L8.07 9.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.84.55 2.8.68A2 2 0 0 1 22 16.92z"></path></svg>',
@@ -125,7 +125,7 @@
     var nameInput = widget.querySelector('[name="name"]');
     var phoneInput = widget.querySelector('[name="phone"]');
     var consentInput = widget.querySelector('[name="consent"]');
-    var honeyInput = widget.querySelector('[name="company"]');
+    var honeyInput = widget.querySelector('[name="_gotcha"]');
     var submitButton = widget.querySelector('.callback-submit');
     var status = widget.querySelector('.callback-status');
     var closeTimer = 0;
@@ -250,28 +250,27 @@
       submitButton.textContent = 'Enviando pedido...';
       status.textContent = '';
 
+      var payload = new FormData();
+      payload.append('Nome', name);
+      payload.append('Telefone', phone);
+      payload.append('Solicitacao', 'Pedido de ligação pelo site');
+      payload.append('Pagina', window.location.href);
+      payload.append('_subject', 'Novo pedido de ligação - UAI Tracker');
+      payload.append('_gotcha', honeyInput.value);
+
       fetch(FORM_ENDPOINT, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify({
-          Nome: name,
-          Telefone: phone,
-          Solicitacao: 'Pedido de ligação pelo site',
-          Pagina: window.location.href,
-          _subject: 'Novo pedido de ligação - UAI Tracker',
-          _template: 'table',
-          _captcha: 'false',
-          _honey: ''
-        })
+        body: payload
       })
         .then(function (response) {
           if (!response.ok) throw new Error('Form submission failed');
           return response.json();
         })
-        .then(function () {
+        .then(function (result) {
+          if (!result || result.ok !== true) throw new Error('Form submission rejected');
           requested = true;
           writeSession(storageKeys.requested);
           form.classList.add('is-submitted');
